@@ -1,0 +1,23 @@
+input[type="text"] {
+    text-transform: capitalize;
+}
+
+.relative {
+    position: relative;
+}
+
+button.absolute.inset-y-0.right-3 {
+    position: absolute;
+    top: 60%;
+    right: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+button.absolute.inset-y-0.right-3 img {
+    height: 1.5rem; /* Ajusta el tamaño de la imagen según tu preferencia */
+    width: 1.5rem;
+}
+

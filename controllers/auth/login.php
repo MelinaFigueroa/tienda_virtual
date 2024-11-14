@@ -1,10 +1,12 @@
-// api/auth/login.php
 <?php
+session_start();
+
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../models/User.php';
 require_once '../../utils/jwt.php';
 require_once '../../utils/validators.php';
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -16,26 +18,32 @@ $database = new Database();
 $db = $database->getConnection();
 $user = new User($db);
 
-$data = json_decode(file_get_contents("php://input"));
+$email = $_POST['email'] ?? null;
+$password = $_POST['password'] ?? null;
 
-if(empty($data->username) || empty($data->password)) {
+if (empty($email) || empty($password)) {
     http_response_code(400);
     echo json_encode(["message" => "Datos incompletos"]);
     exit();
 }
 
-$username = Validators::sanitizeInput($data->username);
-$password = $data->password;
+$email = Validators::sanitizeInput($email);
 
-$result = $user->login($username, $password);
+$result = $user->login($email, $password);
 
-if($result) {
+if ($result) {
+    // Almacenar datos del usuario en la sesión
+    $_SESSION['user_id'] = $result['id'];
+    $_SESSION['user_name'] = $result['name'];
+    $_SESSION['user_role'] = $result['role_id'];
+
+    // Crear y devolver el token
     $token = JWT::encode([
         "id" => $result['id'],
-        "username" => $result['username'],
-        "exp" => time() + (60 * 60) // Token válido por 1 hora
+        "email" => $result['email'],
+        "exp" => time() + (60 * 60) // Expira en 1 hora
     ]);
-    
+
     http_response_code(200);
     echo json_encode([
         "message" => "Login exitoso",
@@ -45,3 +53,4 @@ if($result) {
     http_response_code(401);
     echo json_encode(["message" => "Credenciales inválidas"]);
 }
+?>
