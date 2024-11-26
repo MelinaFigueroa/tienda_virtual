@@ -27,56 +27,50 @@ $pdo = $database->getConnection();
                 Ver Catálogo
             </a>
         </section>
-        
+
         <!-- Featured Products -->
         <section class="mb-12">
             <h2 class="text-2xl font-bold mb-6 text-gray-800">Productos Destacados</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <?php
-                // Consulta a la base de datos para productos destacados
                 $stmt = $pdo->prepare("SELECT * FROM productos WHERE destacado = 1 LIMIT 3");
                 $stmt->execute();
                 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                foreach ($productos as $producto) {
-                    echo '
-            <article class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
-                <img src="images/' . htmlspecialchars($producto['imagen']) . '" alt="' . htmlspecialchars($producto['nombre']) . '" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-bold text-lg mb-2 text-gray-700">' . htmlspecialchars($producto['nombre']) . '</h3>
-                    <p class="text-gray-600 mb-4">' . htmlspecialchars($producto['descripcion']) . '</p>
-                    <p class="font-bold text-green-600">' . htmlspecialchars($producto['precio']) . ' ARS</p>
-                </div>
-            </article>';
-                }
-                ?>
+                foreach ($productos as $producto): ?>
+                    <article class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
+                        <img src="<?php echo BASE_URL . 'public/images/' . htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>" class="w-full h-48 object-contain">
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-2 text-gray-700"><?php echo htmlspecialchars($producto['nombre']); ?></h3>
+                            <p class="text-gray-600 mb-4"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
+                            <p class="font-bold text-green-600"><?php echo number_format($producto['precio'], 2, '.', ','); ?> ARS</p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
             </div>
         </section>
         <!-- Promotions Section -->
-         <section class="mb-12">
-            <h2 class="text-2xl font-bold mb-6 text-gray-800">Ofertas y Promociones</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <?php
-        // Consulta a la base de datos para productos en oferta
-        $stmt = $pdo->prepare("SELECT * FROM productos WHERE oferta = 1 LIMIT 3");
-        $stmt->execute();
-        $ofertas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Productos Destacados</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <?php
+                $stmt = $pdo->prepare("SELECT * FROM productos WHERE destacado = 1 LIMIT 3");
+                $stmt->execute();
+                $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($ofertas as $oferta) {
-            echo '
-            <article class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
-                <img src="images/' . htmlspecialchars($oferta['imagen']) . '" alt="' . htmlspecialchars($oferta['nombre']) . '" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="font-bold text-lg mb-2 text-gray-700">' . htmlspecialchars($oferta['nombre']) . '</h3>
-                    <p class="text-gray-600 mb-4">' . htmlspecialchars($oferta['descripcion']) . '</p>
-                    <p class="font-bold text-green-600">' . htmlspecialchars($oferta['precio']) . ' ARS</p>
-                </div>
-            </article>';
-        }
-        ?>
-    </div>
-</section>
-</main>
+                foreach ($productos as $producto): ?>
+                    <article class="bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 overflow-hidden">
+                        <img src="<?php echo BASE_URL . 'public/images/' . htmlspecialchars($producto['imagen']); ?>" alt="<?php echo htmlspecialchars($producto['nombre']); ?>" class="w-full h-48 object-contain">
+                        <div class="p-4">
+                            <h3 class="font-bold text-lg mb-2 text-gray-700"><?php echo htmlspecialchars($producto['nombre']); ?></h3>
+                            <p class="text-gray-600 mb-4"><?php echo htmlspecialchars($producto['descripcion']); ?></p>
+                            <p class="font-bold text-green-600"><?php echo number_format($producto['precio'], 2, '.', ','); ?> ARS</p>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <?php

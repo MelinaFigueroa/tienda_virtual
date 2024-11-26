@@ -1,7 +1,7 @@
 <?php
 // public/views/admin/modificar_producto.php
 session_start();
-require_once '../../../config/config.php';
+require_once __DIR__ . '/../../../config/config.php';
 require_once '../../../config/database.php';
 require_once '../../components/header.php';
 
@@ -23,7 +23,7 @@ $producto = $stmt->fetch(PDO::FETCH_ASSOC);
     <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg overflow-hidden p-8">
         <h2 class="text-3xl font-bold text-green-600 text-center mb-6">Modificar Producto</h2>
 
-        <form action="<?php echo BASE_CONTROLLERS; ?>products/update.php" method="PUT" enctype="multipart/form-data" class="space-y-4">
+        <form action="../../../controllers/products/update.php" method="POST" enctype="multipart/form-data" class="space-y-4">
             <input type="hidden" name="id" value="<?php echo $producto['id']; ?>">
 
             <div>
@@ -33,7 +33,7 @@ $producto = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <div>
                 <label for="precio" class="block text-sm font-medium text-gray-700 mb-1">Precio</label>
-                <input type="number" name="precio" id="precio" value="<?php echo htmlspecialchars($producto['precio']); ?>" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-green-500" required>
+                <input type="number" name="precio" id="precio" value="<?php echo number_format($product['precio'], 2); ?>" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-green-500" required>
             </div>
 
             <div>
@@ -45,7 +45,7 @@ $producto = $stmt->fetch(PDO::FETCH_ASSOC);
                 <label for="imagen" class="block text-sm font-medium text-gray-700 mb-1">Imagen del Producto</label>
                 <input type="file" name="imagen" id="imagen" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:border-green-500">
                 <?php if ($producto['imagen']): ?>
-                    <p>Imagen actual: <img src="<?php echo BASE_URL . 'images/' . $producto['imagen']; ?>" alt="Imagen del producto" class="h-16 w-16 object-cover"></p>
+                    <p>Imagen actual: <img src="<?php echo BASE_URL . '/images/' . $producto['imagen']; ?>" alt="Imagen del producto" class="h-16 w-16 object-cover"></p>
                 <?php endif; ?>
             </div>
 
@@ -56,7 +56,7 @@ $producto = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 </main>
 
-<?php 
+<?php
 require_once '../../components/footer.php';
 renderFooter();
 ?>

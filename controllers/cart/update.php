@@ -1,7 +1,9 @@
 <!-- actualizar la cantidad de un producto en el carrito -->
 
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once '../../utils/cartHelper.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header('Location: ../../public/views/carrito.php');
+// Redirige de vuelta al carrito después de agregar el producto
+header('Location: ../../public/views/carrito.php?status=updated');
 exit;
 ?>

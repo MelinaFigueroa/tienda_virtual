@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2024 a las 01:54:46
+-- Tiempo de generación: 26-11-2024 a las 23:43:19
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -44,12 +44,12 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `precio`, `imagen`, `cantidad`, `destacado`, `oferta`, `fecha_creacion`) VALUES
-(15, 'fghfgh', 'ghjfghjf', 99999999.99, 'maceta de tela.webp', 0, 1, 0, '2024-11-12 17:43:24'),
-(16, 'fghfgh', 'fhgdfh', 564356.00, 'maceta de tela.webp', 1, 0, 1, '2024-11-12 17:44:27'),
-(17, 'fghfgh', 'dhfhdfh', 747.00, 'maceta de tela.webp', 0, 1, 0, '2024-11-12 18:08:36'),
-(18, 'fghfgh', 'dfgsfg', 436346.00, 'maceta de tela.webp', 0, 0, 1, '2024-11-12 18:09:45'),
-(19, 'fghfgh', 'dfhdfgh', 56456.00, 'maceta de tela.webp', 0, 0, 0, '2024-11-12 18:19:30'),
-(20, 'fghfgh', 'fhgdfhgs', 563456.00, 'maceta de tela.webp', 1, 0, 0, '2024-11-12 18:20:33');
+(15, 'Maceta de tela', 'Maceta de tela transpirable ideal para promover el desarrollo saludable de raíces. Su diseño permite una mejor oxigenación y drenaje, evitando el exceso de agua y fortaleciendo las plantas desde la raíz. Perfecta para cultivos en interior y exterior.', 45.00, 'maceta-de-tela.webp', 0, 1, 0, '2024-11-12 17:43:24'),
+(16, 'Medidor de ph', 'Herramienta esencial para medir con precisión los niveles de pH en soluciones de riego. Diseñado para garantizar un control adecuado de la acidez o alcalinidad, optimizando el crecimiento y la salud de tus cultivos.', 25000.00, 'medidor-ph.webp', 1, 0, 1, '2024-11-12 17:44:27'),
+(17, 'Medidor de electroconductividad', 'Instrumento avanzado que mide la electroconductividad (EC) de soluciones nutritivas, asegurando que las plantas reciban la cantidad exacta de nutrientes. Ideal para cultivos hidropónicos y profesionales que buscan maximizar el rendimiento.', 30000.00, 'medidor-electro.webp', 0, 1, 0, '2024-11-12 18:08:36'),
+(18, 'Lámpara LED para cultivo', 'Lámpara LED de espectro completo, ideal para promover el crecimiento de plantas en interiores.', 200000.00, 'panel-led.webp', 0, 0, 1, '2024-11-12 18:09:45'),
+(19, 'Sustrato de coco 50L', 'Mezcla orgánica de fibra de coco, perfecta para mejorar la retención de agua y aireación del suelo.', 75000.00, 'coco.webp', 0, 0, 0, '2024-11-12 18:19:30'),
+(20, 'Carpa de cultivo 120x120x200 cm', 'Carpa reflectante para cultivos en interiores, con entradas ajustables para ventilación y cableado.', 250000.00, 'carpa.webp', 1, 0, 0, '2024-11-12 18:20:33');
 
 -- --------------------------------------------------------
 

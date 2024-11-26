@@ -1,5 +1,5 @@
-// api/crud/update.php
 <?php
+// api/crud/update.php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../middleware/auth.php';
@@ -21,7 +21,7 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-if(empty($data->id)) {
+if (empty($data->id)) {
     http_response_code(400);
     echo json_encode(["message" => "ID requerido"]);
     exit();
@@ -29,8 +29,8 @@ if(empty($data->id)) {
 
 $user->id = $data->id;
 
-if(!empty($data->email)) {
-    if(!Validators::validateEmail($data->email)) {
+if (!empty($data->email)) {
+    if (!Validators::validateEmail($data->email)) {
         http_response_code(400);
         echo json_encode(["message" => "Email inválido"]);
         exit();
@@ -38,11 +38,11 @@ if(!empty($data->email)) {
     $user->email = Validators::sanitizeInput($data->email);
 }
 
-if(!empty($data->username)) {
+if (!empty($data->username)) {
     $user->username = Validators::sanitizeInput($data->username);
 }
 
-if($user->update()) {
+if ($user->update()) {
     http_response_code(200);
     echo json_encode(["message" => "Usuario actualizado"]);
 } else {

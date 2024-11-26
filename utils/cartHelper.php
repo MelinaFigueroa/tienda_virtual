@@ -1,5 +1,6 @@
 <?php
-function addProductToCart($nombre, $precio, $cantidad) {
+function addProductToCart($nombre, $precio, $cantidad)
+{
     if (!isset($_SESSION['carrito'])) {
         $_SESSION['carrito'] = [];
     }
@@ -18,7 +19,8 @@ function addProductToCart($nombre, $precio, $cantidad) {
     ];
 }
 
-function calculateCartTotal() {
+function calculateCartTotal()
+{
     $total = 0;
     if (isset($_SESSION['carrito'])) {
         foreach ($_SESSION['carrito'] as $producto) {
@@ -27,4 +29,3 @@ function calculateCartTotal() {
     }
     return $total;
 }
-?>

@@ -1,5 +1,5 @@
-// api/crud/create.php
 <?php
+// api/crud/create.php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../middleware/auth.php';
@@ -21,13 +21,13 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-if(empty($data->username) || empty($data->email)) {
+if (empty($data->username) || empty($data->email)) {
     http_response_code(400);
     echo json_encode(["message" => "Datos incompletos"]);
     exit();
 }
 
-if(!Validators::validateEmail($data->email)) {
+if (!Validators::validateEmail($data->email)) {
     http_response_code(400);
     echo json_encode(["message" => "Email inválido"]);
     exit();
@@ -36,15 +36,15 @@ if(!Validators::validateEmail($data->email)) {
 try {
     $user->username = Validators::sanitizeInput($data->username);
     $user->email = Validators::sanitizeInput($data->email);
-    
-    if($user->create()) {
+
+    if ($user->create()) {
         http_response_code(201);
         echo json_encode(["message" => "Usuario creado exitosamente"]);
     } else {
         http_response_code(503);
         echo json_encode(["message" => "No se pudo crear el usuario"]);
     }
-} catch(Exception $e) {
+} catch (Exception $e) {
     http_response_code(503);
     echo json_encode(["message" => "Error en el servidor"]);
 }

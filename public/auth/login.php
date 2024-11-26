@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../config/config.php';
 require_once '../components/header.php';
 require_once '../components/footer.php';
 
@@ -25,8 +26,8 @@ renderHeader('login');
                     <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none" onclick="togglePasswordVisibility('password')">
                         <img id="togglePasswordIcon" src="../icons/visibility_off.svg" alt="Toggle visibility" class="h-5 w-5">
                     </button>
-                    <div id="passwordRequirements" class="text-red-500 text-sm hidden">La contraseña debe tener al menos 8 caracteres y un número.</div>
                 </div>
+                <div id="passwordRequirements" class="text-red-500 text-sm hidden">La contraseña debe tener al menos 8 caracteres y un número.</div>
 
                 <button type="submit" class="w-full bg-green-600 text-white p-3 rounded-md font-bold hover:bg-green-700 transition duration-300">Iniciar Sesión</button>
 
@@ -42,8 +43,7 @@ renderHeader('login');
     <?php include '../components/successModal.php'; ?>
 
     <!--scripts-->
-    <script src="../js/modal.js"></script>
-    <script src="../js/login.js"></script>
+    <script src="../js/modals/loginModal.js"></script>
     <script src="../js/passwordVisibility.js"></script>
 
 

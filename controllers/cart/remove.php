@@ -1,8 +1,12 @@
 <!--lógica para eliminar un producto del carrito -->
 
 <?php
-session_start();
+require_once __DIR__ . '/../../config/config.php';
 require_once '../../utils/cartHelper.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $index = (int) ($_POST['index'] ?? -1);
@@ -13,6 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header('Location: ../../public/views/carrito.php');
+header('Location: ../../public/views/carrito.php?status=deleted');
 exit;
 ?>

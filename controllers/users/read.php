@@ -1,5 +1,5 @@
-// api/crud/read.php
 <?php
+// api/crud/read.php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../middleware/auth.php';
@@ -21,22 +21,22 @@ $user = new User($db);
 $stmt = $user->read();
 $num = $stmt->rowCount();
 
-if($num > 0) {
+if ($num > 0) {
     $users_arr = array();
-    
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         extract($row);
-        
+
         $user_item = array(
             "id" => $id,
             "username" => $username,
             "email" => $email,
             "created_at" => $created_at
         );
-        
+
         array_push($users_arr, $user_item);
     }
-    
+
     http_response_code(200);
     echo json_encode($users_arr);
 } else {

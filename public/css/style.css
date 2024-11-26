@@ -1,5 +1,49 @@
-input[type="text"] {
-    text-transform: capitalize;
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.article img {
+    object-fit: contain;
+    /* Mostrar la imagen completa */
+}
+
+section.grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    /* Por defecto, 1 columna */
+    gap: 1.5rem;
+    /* Espacio entre los elementos */
+}
+
+/* Dos columnas en pantallas medianas */
+@media (min-width: 640px) {
+    section.grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columnas en pantallas medianas */
+    }
+}
+
+/* Tres columnas en pantallas grandes */
+@media (min-width: 1024px) {
+    section.grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columnas en pantallas grandes */
+    }
 }
 
 .relative {
@@ -17,7 +61,44 @@ button.absolute.inset-y-0.right-3 {
 }
 
 button.absolute.inset-y-0.right-3 img {
-    height: 1.5rem; /* Ajusta el tamaño de la imagen según tu preferencia */
+    height: 1.5rem;
+    /* Ajusta el tamaño de la imagen según tu preferencia */
     width: 1.5rem;
 }
 
+#menuToggle {
+    display: none;
+}
+
+/* Ajustes para el formulario en pantallas pequeñas */
+@media (max-width: 640px) {
+    .max-w-sm {
+        max-width: 90%;
+        /* Reduce el ancho en pantallas pequeñas */
+        padding: 16px;
+        /* Reduce el padding */
+    }
+}
+
+@media (max-width: 768px) {
+    #menuToggle {
+        display: block;
+    }
+
+    #navLinks {
+        display: none;
+        /* Oculta el menú por defecto en pantallas pequeñas */
+        flex-direction: column;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 10;
+        padding: 10px;
+    }
+
+    #navLinks li {
+        margin-bottom: 10px;
+    }
+}

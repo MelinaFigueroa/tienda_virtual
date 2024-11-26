@@ -3,14 +3,13 @@
 <?php
 // Incluir la configuración de rutas
 require_once __DIR__ . '/../../config/config.php';
+require_once '../../utils/cartHelper.php';
 
 // Iniciar la sesión si no está ya iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Incluir el archivo helper usando la ruta absoluta
-require_once UTILS_PATH . 'cartHelper.php';
 
 // Obtener el contenido del carrito
 $carrito = $_SESSION['carrito'] ?? [];

@@ -1,5 +1,5 @@
-// api/crud/read_one.php
 <?php
+// api/crud/read_one.php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../middleware/auth.php';
@@ -20,14 +20,14 @@ $user = new User($db);
 
 $user->id = isset($_GET['id']) ? $_GET['id'] : die();
 
-if($user->readOne()) {
+if ($user->readOne()) {
     $user_arr = array(
         "id" => $user->id,
         "username" => $user->username,
         "email" => $user->email,
         "created_at" => $user->created_at
     );
-    
+
     http_response_code(200);
     echo json_encode($user_arr);
 } else {

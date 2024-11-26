@@ -1,7 +1,7 @@
 function togglePasswordVisibility(inputId) {
     const passwordInput = document.getElementById(inputId);
     const passwordIcon = document.getElementById('togglePasswordIcon');
-    
+
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         passwordIcon.src = '../icons/visibility_on.svg';
@@ -11,11 +11,11 @@ function togglePasswordVisibility(inputId) {
     }
 }
 
-   // Validación en tiempo real de la contraseña
-   document.getElementById('password').addEventListener('input', function() {
+// Validación en tiempo real de la contraseña
+document.getElementById('password').addEventListener('input', function () {
     const password = this.value;
     const requirements = document.getElementById('passwordRequirements');
-    
+
     // Verificar si la contraseña tiene al menos 8 caracteres y al menos un número
     const isValid = password.length >= 8 && /\d/.test(password);
 

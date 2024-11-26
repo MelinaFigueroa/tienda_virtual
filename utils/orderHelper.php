@@ -1,9 +1,10 @@
 <!-- Este archivo contiene las funciones auxiliares para manejar las operaciones de los pedidos. -->
 
 <?php
-function createOrder($userId, $items, $total) {
-    // En una implementación real, aquí se insertaría el pedido en la base de datos
-    // Aquí simulamos un pedido guardado en la sesión
+function createOrder($userId, $items, $total)
+{
+    // En una implementación real, aca se insertaría el pedido en la base de datos
+    // aca simulamos un pedido guardado en la sesión
     if (!isset($_SESSION['orders'])) {
         $_SESSION['orders'] = [];
     }
@@ -20,11 +21,13 @@ function createOrder($userId, $items, $total) {
     return $orderId;
 }
 
-function getOrderDetails($orderId) {
+function getOrderDetails($orderId)
+{
     return $_SESSION['orders'][$orderId] ?? null;
 }
 
-function updateOrderStatus($orderId, $newStatus) {
+function updateOrderStatus($orderId, $newStatus)
+{
     if (isset($_SESSION['orders'][$orderId])) {
         $_SESSION['orders'][$orderId]['status'] = $newStatus;
         return true;
@@ -32,7 +35,8 @@ function updateOrderStatus($orderId, $newStatus) {
     return false;
 }
 
-function deleteOrder($orderId) {
+function deleteOrder($orderId)
+{
     if (isset($_SESSION['orders'][$orderId])) {
         unset($_SESSION['orders'][$orderId]);
         return true;
@@ -40,12 +44,14 @@ function deleteOrder($orderId) {
     return false;
 }
 
-function getAllOrders() {
+function getAllOrders()
+{
     return $_SESSION['orders'] ?? [];
 }
 
-function getUserOrders($userId) {
-    return array_filter($_SESSION['orders'] ?? [], function($order) use ($userId) {
+function getUserOrders($userId)
+{
+    return array_filter($_SESSION['orders'] ?? [], function ($order) use ($userId) {
         return $order['user_id'] === $userId;
     });
 }

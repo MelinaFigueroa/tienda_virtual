@@ -1,7 +1,8 @@
 <?php
 
-class JWT {
-    private static $secretKey = 'tu_secreto_unico_para_firmar_el_token'; // Cambia esta clave por una única y segura
+class JWT
+{
+    private static $secretKey = 'tu_secreto_unico_para_firmar_el_token'; // Cambiar la clave por una única y segura
 
     /**
      * Encode data into a JWT token
@@ -9,7 +10,8 @@ class JWT {
      * @param array $data
      * @return string
      */
-    public static function encode($data) {
+    public static function encode($data)
+    {
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
         $payload = json_encode($data);
 
@@ -29,7 +31,8 @@ class JWT {
      * @param string $token
      * @return array|bool
      */
-    public static function decode($token) {
+    public static function decode($token)
+    {
         $parts = explode('.', $token);
         if (count($parts) !== 3) {
             return false;
@@ -62,7 +65,8 @@ class JWT {
      * @param string $data
      * @return string
      */
-    private static function base64UrlEncode($data) {
+    private static function base64UrlEncode($data)
+    {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
@@ -72,7 +76,8 @@ class JWT {
      * @param string $data
      * @return string
      */
-    private static function base64UrlDecode($data) {
+    private static function base64UrlDecode($data)
+    {
         return base64_decode(strtr($data, '-_', '+/'));
     }
 }

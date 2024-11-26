@@ -1,44 +1,47 @@
 <?php
 // controllers/products/create.php
-require_once '../../config/config.php';
+require_once __DIR__ . '/../../config/config.php';
 require_once '../../config/database.php';
+require_once '../../models/Product.php'; // Importar el modelo
 
+// Conexión a la base de datos
 $database = new Database();
-$pdo = $database->getConnection(); // Conexión a la base de datos
+$pdo = $database->getConnection();
+$productModel = new Product($pdo); // Crear instancia del modelo
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre'] ?? '';
-    $precio = $_POST['precio'] ?? 0;
+    $precio = floatval(str_replace([',', '$'], '', $_POST['precio']));
     $descripcion = $_POST['descripcion'] ?? '';
     $nombreImagen = null;
 
+    // Validar campos obligatorios
+    if (empty($nombre) || $precio <= 0 || empty($descripcion)) {
+        header("Location: " . VIEWS_URL . "admin/cargar_producto.php?status=error_validation");
+        exit();
+    }
+
     // Manejo de la imagen
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-        $nombreImagen = $_FILES['imagen']['name'];
+        $nombreImagen = uniqid() . '_' . $_FILES['imagen']['name'];
         $rutaTemporal = $_FILES['imagen']['tmp_name'];
         $rutaDestino = '../../public/images/' . $nombreImagen;
 
         if (!move_uploaded_file($rutaTemporal, $rutaDestino)) {
-            echo "Error al subir la imagen.";
+            header("Location: " . VIEWS_URL . "admin/cargar_producto.php?status=error_upload");
             exit();
         }
-    } else {
-        echo "Error en la carga de la imagen.";
     }
 
-    // Insertar en la base de datos
+    // Usar el modelo para insertar el producto
     try {
-        $stmt = $pdo->prepare("INSERT INTO productos (nombre, precio, descripcion, imagen) VALUES (?, ?, ?, ?)");
-        if ($stmt->execute([$nombre, $precio, $descripcion, $nombreImagen])) {
-            // Redirigir a cargar_producto.php después de guardar exitosamente
+        if ($productModel->create($nombre, $precio, $descripcion, $nombreImagen)) {
             header("Location: " . VIEWS_URL . "admin/cargar_producto.php?status=added");
         } else {
-            echo "Error al insertar el producto en la base de datos.";
+            header("Location: " . VIEWS_URL . "admin/cargar_producto.php?status=error_insert");
         }
     } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
+        header("Location: " . VIEWS_URL . "admin/cargar_producto.php?status=error_exception");
     }
     exit();
 }
-
-?>

@@ -2,15 +2,16 @@
 
 <?php
 session_start();
+require_once __DIR__ . '/../../config/config.php';
+require_once '../components/header.php';
+require_once '../components/footer.php';
+require_once '../../utils/orderHelper.php';
+
 if (!isset($_SESSION['user_id'])) {
     header('Location: auth/login.php');
     exit;
 }
 $user_id = $_SESSION['user_id'];
-
-require_once '../components/header.php';
-require_once '../components/footer.php';
-require_once '../../utils/orderHelper.php';
 
 renderHeader('orders');
 

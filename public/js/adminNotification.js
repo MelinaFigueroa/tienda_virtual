@@ -8,26 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 
+    if (urlParams.get('status') === 'updated') {
+        showAdminSuccessModal('¡Producto actualizado con éxito!', 'Los cambios han sido guardados.');
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     if (urlParams.get('status') === 'deleted') {
-        showAdminSuccessModal('Producto eliminado', 'El producto ha sido eliminado exitosamente.');
+        confirmDeleteModal('Producto eliminado', 'El producto ha sido eliminado exitosamente.');
         window.history.replaceState({}, document.title, window.location.pathname);
     }
-    /**
-      const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('status') === 'added') {
-        configureModal(
-            '¡Producto agregado con éxito!',
-            'El producto fue añadido correctamente a la lista.',
-            'Ir a la lista de productos',
-            () => {
-                window.location.href = '../admin/listar_productos.php';
-            }
-        );
-        // Remover el parámetro de la URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-    }
-    }
-     */
 });
 
 function showAdminSuccessModal(title, message) {
@@ -50,10 +39,10 @@ function showAdminSuccessModal(title, message) {
     // Mostrar el modal
     successModal.classList.remove('hidden');
 
-        // Cierra el modal automáticamente después de unos segundos
-        setTimeout(() => {
-            successModal.classList.add('hidden');
-        }, 3000);
+    // Cierra el modal automáticamente después de unos segundos
+    setTimeout(() => {
+        successModal.classList.add('hidden');
+    }, 3000);
 
     // Agregar el evento para redirigir al hacer clic en el botón
     redirectButton.addEventListener('click', () => {
@@ -61,17 +50,54 @@ function showAdminSuccessModal(title, message) {
     });
 }
 
-//Funcion para eliminar un producto desde la vista admin
 function confirmDeleteModal(productId) {
-    configureModal(
+    showAdminDeleteModal(
         'Confirmar Eliminación',
         '¿Estás seguro de que deseas eliminar este producto? Esta acción no se puede deshacer.',
         'Eliminar',
         () => {
-            window.location.href = `../../../controllers/products/delete.php?id=${productId}`;
+            window.location.href = `../../../controllers/products/delete.php?id=${productId}&status=deleted`;
+            window.history.replaceState({}, document.title, window.location.pathname);
         },
         'Cancelar',
         closeModal
     );
 }
 
+// Función para configurar y mostrar el modal
+function showAdminDeleteModal(title, message, buttonText, buttonAction, cancelText = 'Cancelar', cancelAction = closeModal) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalMessage = document.getElementById('modal-message');
+    const deleteConfirmButton = document.getElementById('deleteConfirmButton');
+    const cancelButton = document.getElementById('deleteCancelButton');
+    const deleteModal = document.getElementById('deleteModal');
+
+    if (!modalTitle || !modalMessage || !redirectButton || !cancelButton || !successModal) {
+        console.error("No se encontraron elementos del modal en el DOM");
+        return;
+    }
+
+    // Actualiza el contenido del modal
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+    deleteConfirmButton.textContent = buttonText;
+    cancelButton.textContent = cancelText;
+
+    // Configura la acción de los botones
+    deleteConfirmButton.onclick = () => {
+        buttonAction();
+        closeModal(); // Cierra el modal después de ejecutar la acción
+    };
+    cancelButton.onclick = () => {
+        cancelAction();
+        closeModal(); // Cierra el modal si se hace clic en "Cancelar"
+    };
+
+    // Muestra el modal
+    deleteModal.classList.remove('hidden');
+}
+
+// Función para cerrar el modal
+function closeModal() {
+    document.getElementById('deleteModal').classList.add('hidden');
+}

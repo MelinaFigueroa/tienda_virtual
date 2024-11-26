@@ -1,4 +1,3 @@
-<!-- components/successModal.php -->
 <div id="successModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -17,9 +16,11 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-5 sm:mt-6">
-            <button type="button" class="w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm" id="redirectButton"></button>
-            <button type="button" class="w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-300 text-base font-medium text-gray-700 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 sm:text-sm" id="cancelButton"></button>
+            <div class="mt-5 sm:mt-6 flex justify-between space-x-2">
+                <!-- Botón principal -->
+                <button type="button" id="redirectButton" class="w-full rounded-md bg-green-600 text-white px-4 py-2 font-medium hover:bg-green-700 focus:outline-none sm:text-sm"></button>
+                <!-- Botón secundario opcional -->
+                <button type="button" id="cancelButton" class="w-full rounded-md bg-gray-300 text-gray-700 px-4 py-2 font-medium hover:bg-gray-400 focus:outline-none sm:text-sm hidden"></button>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
-// api/crud/delete.php
 <?php
+// api/crud/delete.php
 require_once '../../config/cors.php';
 require_once '../../config/database.php';
 require_once '../../middleware/auth.php';
@@ -20,7 +20,7 @@ $user = new User($db);
 
 $data = json_decode(file_get_contents("php://input"));
 
-if(empty($data->id)) {
+if (empty($data->id)) {
     http_response_code(400);
     echo json_encode(["message" => "ID requerido"]);
     exit();
@@ -28,7 +28,7 @@ if(empty($data->id)) {
 
 $user->id = $data->id;
 
-if($user->delete()) {
+if ($user->delete()) {
     http_response_code(200);
     echo json_encode(["message" => "Usuario eliminado"]);
 } else {

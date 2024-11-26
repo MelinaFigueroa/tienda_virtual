@@ -2,7 +2,8 @@
 <?php
 //models/User.php
 
-class User {
+class User
+{
     private $conn;
     private $table_name = "users";
 
@@ -14,53 +15,56 @@ class User {
     public $role_id;
     public $created_at;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Create a new user
 
-    public function create() {
-    //erifica si el email o username ya existen
-    $queryCheck = "SELECT COUNT(*) FROM " . $this->table_name . " WHERE email = :email OR username = :username";
-    $stmtCheck = $this->conn->prepare($queryCheck);
-    $stmtCheck->bindParam(':email', $this->email);
-    $stmtCheck->bindParam(':username', $this->username);
-    $stmtCheck->execute();
-    
-    if ($stmtCheck->fetchColumn() > 0) {
-        // Retorna false si el usuario o email ya existen
-        return false;
-    }
-   
-    //Preparar la consulta de inserción si no hay duplicados
-    $query = "INSERT INTO " . $this->table_name . " (name, username, password, email, role_id) 
+    public function create()
+    {
+        //erifica si el email o username ya existen
+        $queryCheck = "SELECT COUNT(*) FROM " . $this->table_name . " WHERE email = :email OR username = :username";
+        $stmtCheck = $this->conn->prepare($queryCheck);
+        $stmtCheck->bindParam(':email', $this->email);
+        $stmtCheck->bindParam(':username', $this->username);
+        $stmtCheck->execute();
+
+        if ($stmtCheck->fetchColumn() > 0) {
+            // Retorna false si el usuario o email ya existen
+            return false;
+        }
+
+        //Preparar la consulta de inserción si no hay duplicados
+        $query = "INSERT INTO " . $this->table_name . " (name, username, password, email, role_id) 
               VALUES (:name, :username, :password, :email, :role_id)";
 
-    $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($query);
 
-    // Aplicar hash a la contraseña
-    $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        // Aplicar hash a la contraseña
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
 
-    // Bind de parámetros
-    $stmt->bindParam(":name", $this->name);
-    $stmt->bindParam(":username", $this->username);
-    $stmt->bindParam(":password", $this->password);
-    $stmt->bindParam(":email", $this->email);
-    $stmt->bindParam(":role_id", $this->role_id);
+        // Bind de parámetros
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":username", $this->username);
+        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":role_id", $this->role_id);
 
-    if ($stmt->execute()) {
-        // Obtener el ID del último usuario insertado
-        $this->id = $this->conn->lastInsertId();
-        return true;
-    } else {
-        return false;
+        if ($stmt->execute()) {
+            // Obtener el ID del último usuario insertado
+            $this->id = $this->conn->lastInsertId();
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
 
     // Get all users
-    public function read() {
+    public function read()
+    {
         $query = "SELECT id, name, username, email, role_id, created_at FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -68,7 +72,8 @@ class User {
     }
 
     // Get a specific user by ID
-    public function readOne() {
+    public function readOne()
+    {
         $query = "SELECT id, name, username, email, role_id, created_at 
                   FROM " . $this->table_name . " 
                   WHERE id = :id";
@@ -88,7 +93,8 @@ class User {
     }
 
     // Update user details
-    public function update() {
+    public function update()
+    {
         $query = "UPDATE " . $this->table_name . " SET ";
 
         $sets = [];
@@ -131,7 +137,8 @@ class User {
     }
 
     // Delete user by ID
-    public function delete() {
+    public function delete()
+    {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $this->id);
@@ -139,15 +146,16 @@ class User {
     }
 
     // Login: authenticate user and return user details if valid
-    public function login($email, $password) {
+    public function login($email, $password)
+    {
         $query = "SELECT id, name, email, password, role_id 
                   FROM " . $this->table_name . " 
                   WHERE email = :email";
-        
+
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email); 
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
-        
+
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             // Verificar la contraseña
             if (password_verify($password, $row['password'])) {

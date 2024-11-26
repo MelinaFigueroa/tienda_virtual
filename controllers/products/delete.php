@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . '/../../config/config.php';
 require_once '../../config/database.php';
-require_once '../../config/config.php';
+
 
 $id = $_GET['id'] ?? $_POST['id'] ?? null;
 
@@ -20,4 +21,3 @@ if ($id) {
 } else {
     echo "ID de producto no válido.";
 }
-?>

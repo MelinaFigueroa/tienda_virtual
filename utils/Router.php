@@ -1,33 +1,39 @@
 <?php
-class Router {
+class Router
+{
     private static $routes = [];
 
-    public static function get($uri, $callback) {
+    public static function get($uri, $callback)
+    {
         self::addRoute('GET', $uri, $callback);
     }
 
-    public static function post($uri, $callback) {
+    public static function post($uri, $callback)
+    {
         self::addRoute('POST', $uri, $callback);
     }
 
-    public static function group($options, $callback) {
+    public static function group($options, $callback)
+    {
         if (isset($options['middleware']) && $options['middleware'] === 'auth') {
             if (!Auth::validateToken()) {
-                header("Location: /Proyecto-PHP-1/public/auth/login.php");
+                header("Location: /tienda-online/public/auth/login.php");
                 exit();
             }
         }
         $callback();
     }
 
-    private static function addRoute($method, $uri, $callback) {
+    private static function addRoute($method, $uri, $callback)
+    {
         // Convertir parámetros de ruta {param} a expresiones regulares
         $uri = preg_replace('/\{([a-zA-Z0-9_]+)\}/', '(?P<$1>[a-zA-Z0-9_]+)', $uri);
         $uri = str_replace('/', '\/', $uri); // Escapar slashes para regex
         self::$routes[] = compact('method', 'uri', 'callback');
     }
 
-    public static function dispatch() {
+    public static function dispatch()
+    {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
         $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -44,4 +50,3 @@ class Router {
         echo "404 - Ruta no encontrada";
     }
 }
-?>

@@ -2,6 +2,8 @@
 require_once '../../config/cors.php';
 require_once '../../middleware/auth.php';
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(["message" => "Método no permitido"]);
@@ -9,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 // Cerrar sesión
-session_start();
 session_unset();
 session_destroy();
 
