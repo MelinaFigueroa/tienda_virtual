@@ -59,14 +59,6 @@ php -S localhost:8000
 ```
 
 
-## Contribución
-
-1. Hacer fork del repositorio
-2. Crear rama de características
-3. Realizar cambios
-4. Hacer push
-5. Abrir Pull Request
-
 ## Licencia
 
 Proyecto bajo Licencia MIT.
