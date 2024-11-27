@@ -1,8 +1,9 @@
-# https://pruebas.alwaysdata.net/ Armonía Verde - Growshop Online 🌱
+# Armonía Verde - Growshop Online 🌱
 
 ## Descripción
 
 Armonía Verde es una plataforma de comercio electrónico especializada en la venta de productos de cultivo y jardinería. Ofrece una experiencia de usuario intuitiva con funcionalidades tanto para clientes como para administradores.
+Proba el proyecto ingresando aca! https://pruebas.alwaysdata.net/
 
 ## Características Principales
 
