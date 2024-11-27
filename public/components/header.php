@@ -3,19 +3,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once __DIR__ . '/../../config/config.php';
-
-function renderHeader($currentPage = '')
+function renderHeader($currentPage = '', $pageTitle = 'Bienvenidos a Armonía Verde')
 {
 ?>
     <!DOCTYPE html>
     <html lang="es">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="[Tu descripción aquí]">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Armonía Verde es tu tienda especializada en productos de cultivo sustentable. Encuentra macetas, fertilizantes y herramientas esenciales.">
+        <meta name="keywords" content="growshop, cultivo, macetas, fertilizantes, herramientas de cultivo, Armonía Verde">
+        <meta name="author" content="Armonía Verde">
+        <meta name="robots" content="index, follow">
+        
         <!-- Favicon -->
         <link rel="icon" href="<?php echo URL_FAVICON; ?>" type="image/x-icon">
 
@@ -33,7 +33,7 @@ function renderHeader($currentPage = '')
         <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
 
-        <title>Bienvenidos a Armonía Verde</title>
+        <title><?php echo $pageTitle; ?></title>
     </head>
 
     <body class="flex flex-col min-h-screen">
