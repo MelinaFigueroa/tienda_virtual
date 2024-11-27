@@ -29,7 +29,7 @@ foreach ($carrito as $producto) {
   $mensaje .= "\n- {$producto['nombre']} x {$producto['cantidad']} - {$producto['precio']} ARS";
 }
 $mensaje .= "\nTotal: {$total} ARS";
-$url_whatsapp = "https://wa.me/+5492964457016?text=" . urlencode($mensaje);
+$url_whatsapp = "https://wa.me/+5492964457017?text=" . urlencode($mensaje);
 ?>
 
 <main class="flex-grow container mx-auto px-4 py-8">
