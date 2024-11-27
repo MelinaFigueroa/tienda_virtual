@@ -22,7 +22,7 @@ Armonía Verde es una plataforma de comercio electrónico especializada en la ve
 - **Backend**: PHP puro
 - **Frontend**: HTML, Tailwind CSS, JavaScript
 - **Base de Datos**: MySQL
-- **Diseño**: Responsive en su mayoria
+- **Diseño**: Responsive en su mayoría 
 
 ## Requisitos Previos
 
